@@ -1,46 +1,103 @@
 var ImageCropping = function(options){
-	this.config = {
-		container: 'body'
-	};
-	this.ele = null;     //jquery对象，最外层
-	this.canvas = null;  //canvas元素
-	this.ctx = null;   //canvas.getContext();
-	this.img = null;   //当前的图片
-	this.filter = null;    //Jquery对象，裁剪框
-	this.scaleHeight = 0;  //未放大或者缩小的初始高度
-	this.scaleWidth = 0;  //未放大或者缩小的初始宽度
+    this.config = {
+        container: 'body'
+    };
+    this.ele = null;     //jquery对象，最外层
+    this.canvas = null;  //canvas元素
+    this.ctx = null;   //canvas.getContext();
+    this.img = null;   //当前的图片
+    this.filter = null;    //Jquery对象，裁剪框
+    this.scaleHeight = 0;  //未放大或者缩小的初始高度
+    this.scaleWidth = 0;  //未放大或者缩小的初始宽度
 
-	for(var key in options){
-		if(this.config.hasOwnProperty(key)){
-			this.config[key] = options[key];
-		}
-	}
-    
-	var self = this;
+    for(var key in options){
+        if(this.config.hasOwnProperty(key)){
+            this.config[key] = options[key];
+        }
+    }
 
-	self.render = function(){
-		self.ele = $('<div class="zImgUploader"></div>');
-		var wrap = $('<div class="zImgUploaderWrap"></div>').appendTo(self.ele);
-		wrap.append('<canvas class="zImgUploaderCanvas"></canvas>');
+    var self = this;
+
+    self.render = function(){
+        self.ele = $('<div class="zImgUploader"></div>');
+        var wrap = $('<div class="zImgUploaderWrap"></div>').appendTo(self.ele);
+        wrap.append('<canvas class="zImgUploaderCanvas"></canvas>');
         wrap.append('<span class="zImgUploaderCover zImgUploaderCoverTop"></span>');
         wrap.append('<span class="zImgUploaderCover zImgUploaderCoverRight"></span>');
         wrap.append('<span class="zImgUploaderCover zImgUploaderCoverLeft"></span>');
         wrap.append('<span class="zImgUploaderCover zImgUploaderCoverBottom"></span>');
-		wrap.append('<span class="zImgUploaderFilter"><i class="zCutDown"></i><i class="zCutLeft"></i><i class="zCutRight"></i><i class="zCutUp"></i></span>');
-		self.ele.append('<div class="zImgUploaderControl"><span class="iptFile"><input type="file" accept="image/*">Open</span><span class="zCutRange"><b>－</b><input type="range" min="50" max="500" step="1"><b>＋</b><span class="zRangePercent">0%</span></span><span class="zCutImageSize">0 × 0</span><button class="btnCut">Cut</button></div>');
+        wrap.append('<span class="zImgUploaderFilter"><i class="zCutDown"></i><i class="zCutLeft"></i><i class="zCutRight"></i><i class="zCutUp"></i></span>');
+        self.ele.append('<div class="zImgUploaderControl"><span class="iptFile"><input type="file" accept="image/*">Open</span><span class="zCutRange"><b>－</b><input type="range" min="50" max="500" step="1"><b>＋</b><span class="zRangePercent">0%</span></span><span class="zCutImageSize">0 × 0</span><button class="btnCut">Cut</button></div>');
+        self.ele.append('<h3 class="zImgUploaderDropInfo mt50">Drop image here</h3>');
+        self.canvas = self.ele.find('canvas')[0];
+        self.ctx = self.canvas.getContext('2d');
+        self.img = new Image();
+        self.filter = self.ele.find('.zImgUploaderFilter');
 
-		self.canvas = self.ele.find('canvas')[0];
-		self.ctx = self.canvas.getContext('2d');
-		self.img = new Image();
-		self.filter = self.ele.find('.zImgUploaderFilter');
+        self.ele.appendTo(self.config.container);
 
-		self.ele.appendTo(self.config.container);
+        self.bindEvents();
+    }
 
-		self.bindEvents();
-	}
+    self.supportDrop = function(){
+        self.ele.on('dragover', function(e){
+            e.stopPropagation();    
+            e.preventDefault();
+        })
+        .on('dragenter', function(e){
+            e.stopPropagation();    
+            e.preventDefault();
+            self.ele.addClass('zImgUploaderDrag');
+        })
+        .on('dragleave', function(e){
+            e.stopPropagation();    
+            e.preventDefault();
+            self.ele.removeClass('zImgUploaderDrag');
+        })
 
-	self.bindEvents = function(){
-		self.downWidth = self.filter.width();
+        self.ele.on('drop', function(e){
+            e.stopPropagation();    
+            e.preventDefault();
+            self.ele.removeClass('zImgUploaderDrag');
+            var file = e.originalEvent.dataTransfer.files;
+            self.readFile(file[0]);
+        })
+    }
+
+    self.readFile = function(file){
+        var reader = new FileReader();
+
+        if(!/image\/.*/.test(file.type)){
+            if(window.oc){
+                oc.dialog.tips('Only image file is accept');
+            }
+            else{
+                alert('Only image file is accept');
+            }
+            return;
+        }
+
+        
+        self.ele.find('.zImgUploaderDropInfo').hide();
+
+        self.ele.find('.zImgUploaderFilter').css('display', 'block');
+        
+        reader.onload = function(e){
+            self.img.src = this.result;
+            self.drawImage();
+            self.scaleWidth = self.img.width;
+            self.scaleHeight = self.img.height;
+
+            self.ele.find('.zCutImageSize').html(self.img.width + ' × ' + self.img.height);
+            self.ele.find('.zCutRange input').val(100);
+            self.ele.find('.zRangePercent').html('100%');
+        }
+
+        reader.readAsDataURL(file);
+    }
+
+    self.bindEvents = function(){
+        self.downWidth = self.filter.width();
         self.downHeight = self.filter.height();
         self.downLeft = self.filter.position().left;
         self.downTop = self.filter.position().top;
@@ -48,28 +105,10 @@ var ImageCropping = function(options){
         
         var reader = new FileReader();
         
-		self.ele.on('change', 'input[type="file"]', function(){
-			var file = this.files[0];
-            if(!/image\/.*/.test(file.type)){
-                oc.dialog.tips('Only image file is accept');
-                return;
-            }
-
-            self.ele.find('.zImgUploaderFilter').css('display', 'block');
-            
-            reader.onload = function(e){
-                self.img.src = this.result;
-                self.drawImage();
-                self.scaleWidth = self.img.width;
-                self.scaleHeight = self.img.height;
-
-                self.ele.find('.zCutImageSize').html(self.img.width + ' × ' + self.img.height);
-                self.ele.find('.zCutRange input').val(100);
-                self.ele.find('.zRangePercent').html('100%');
-            }
-
-            reader.readAsDataURL(file);
-		})
+        self.supportDrop();
+        self.ele.on('change', 'input[type="file"]', function(){
+            self.readFile(this.files[0]);
+        })
         .on('input', '.zImgUploaderControl input[type="range"]', function(){
             self.ele.find('.zImgUploaderControl .zRangePercent').html(this.value + '%');
             self.range();
@@ -89,24 +128,24 @@ var ImageCropping = function(options){
             self.range();
         })
         .on('click', '.btnCut', self.cutImage)
-		.on('mousedown', '.zImgUploaderFilter', function(e){
-			if(e.which === 1){
+        .on('mousedown', '.zImgUploaderFilter', function(e){
+            if(e.which === 1){
                 self.downPosition = e.originalEvent;
                 downLeft = self.filter.position().left;
                 downTop = self.filter.position().top;
        
                 $(document).off('mousemove');
                 $(document).on('mousemove', function(e){
-                	self.moveFilter(e);
+                    self.moveFilter(e);
                 });
             }
             else{
-            	console.log('off move');
+                console.log('off move');
                 $(document).off('mousemove');
             }
-		})
-		.on('mousedown', '.zImgUploaderFilter i', function(e){
-			e.stopPropagation();
+        })
+        .on('mousedown', '.zImgUploaderFilter i', function(e){
+            e.stopPropagation();
             self.downWidth = self.filter.width();
             self.downHeight = self.filter.height();
             self.downLeft = self.filter.position().left;
@@ -121,17 +160,17 @@ var ImageCropping = function(options){
                 });
             }
             else{
-            	console.log('off move');
+                console.log('off move');
                 $(document).off('mousemove');
             }
-		})
+        })
 
-		$(document).on('mouseup', function(){
+        $(document).on('mouseup', function(){
             $(document).off('mousemove');
         })
-	}
+    }
 
-	self.drawImage = function(){
+    self.drawImage = function(){
         if(!self.img.src){
             return;
         }
@@ -198,8 +237,8 @@ var ImageCropping = function(options){
     }
 
     self.moveFilter = function(e){
-    	var currentPosition = e.originalEvent;
-   		
+        var currentPosition = e.originalEvent;
+        
         var left = downLeft + currentPosition.clientX - self.downPosition.clientX;
         var top = downTop + currentPosition.clientY - self.downPosition.clientY;
         if(left < 0){
@@ -265,8 +304,8 @@ var ImageCropping = function(options){
     }
 
     self.moveFilterIcon = function(e, i){
-    	
-    	e.stopPropagation();
+        
+        e.stopPropagation();
 
         var currentPosition = e.originalEvent;
         var ele = $(i);

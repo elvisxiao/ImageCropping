@@ -758,6 +758,16 @@ body {
 /* line 1 : /Users/elvis/bitbucket/ocui/node_modules/grunt-contrib-stylus/node_modules/stylus/lib/functions/index.styl */
 
 /* line 1 : /Users/elvis/bitbucket/ocui/public/css/imageCropping.styl */
+.zImgUploader.zImgUploaderDrag {
+  box-shadow: 0 0 15px #aaa;
+}
+
+/* line 3 : /Users/elvis/bitbucket/ocui/public/css/imageCropping.styl */
+.zImgUploader.zImgUploaderDrag .zImgUploaderDropInfo {
+  color: #222;
+}
+
+/* line 5 : /Users/elvis/bitbucket/ocui/public/css/imageCropping.styl */
 .zImgUploader {
   position: relative;
   line-height: 1em;
@@ -773,7 +783,13 @@ body {
   font-size: 14px;
 }
 
-/* line 14 : /Users/elvis/bitbucket/ocui/public/css/imageCropping.styl */
+/* line 18 : /Users/elvis/bitbucket/ocui/public/css/imageCropping.styl */
+.zImgUploader .zImgUploaderDropInfo {
+  margin-top: 28%;
+  color: #888;
+}
+
+/* line 21 : /Users/elvis/bitbucket/ocui/public/css/imageCropping.styl */
 .zImgUploader .btnCut {
   display: inline-block;
   padding: 5px 15px;
@@ -785,57 +801,57 @@ body {
   margin-top: 2px;
 }
 
-/* line 23 : /Users/elvis/bitbucket/ocui/public/css/imageCropping.styl */
+/* line 30 : /Users/elvis/bitbucket/ocui/public/css/imageCropping.styl */
 .zImgUploader .btnCut:hover {
   box-shadow: 0 0 15px #ddd inset;
 }
 
-/* line 25 : /Users/elvis/bitbucket/ocui/public/css/imageCropping.styl */
+/* line 32 : /Users/elvis/bitbucket/ocui/public/css/imageCropping.styl */
 .zImgUploader .zImgUploaderWrap {
   position: absolute;
   left: 50%;
   top: 50%;
 }
 
-/* line 29 : /Users/elvis/bitbucket/ocui/public/css/imageCropping.styl */
+/* line 36 : /Users/elvis/bitbucket/ocui/public/css/imageCropping.styl */
 .zImgUploader .zImgUploaderWrap canvas {
   display: block;
 }
 
-/* line 31 : /Users/elvis/bitbucket/ocui/public/css/imageCropping.styl */
+/* line 38 : /Users/elvis/bitbucket/ocui/public/css/imageCropping.styl */
 .zImgUploader .zCutRange {
   display: inline-block;
   width: 210px;
 }
 
-/* line 34 : /Users/elvis/bitbucket/ocui/public/css/imageCropping.styl */
+/* line 41 : /Users/elvis/bitbucket/ocui/public/css/imageCropping.styl */
 .zImgUploader .zImgUploaderCover {
   display: block;
   position: absolute;
   background: rgba(200,200,200,0.3);
 }
 
-/* line 38 : /Users/elvis/bitbucket/ocui/public/css/imageCropping.styl */
+/* line 45 : /Users/elvis/bitbucket/ocui/public/css/imageCropping.styl */
 .zImgUploader .zImgUploaderCoverTop,
 .zImgUploader .zImgUploaderCoverLeft {
   top: 0;
   left: 0;
 }
 
-/* line 41 : /Users/elvis/bitbucket/ocui/public/css/imageCropping.styl */
+/* line 48 : /Users/elvis/bitbucket/ocui/public/css/imageCropping.styl */
 .zImgUploader .zImgUploaderCoverBottom,
 .zImgUploader .zImgUploaderCoverRight {
   bottom: 2px;
   right: 0;
 }
 
-/* line 44 : /Users/elvis/bitbucket/ocui/public/css/imageCropping.styl */
+/* line 51 : /Users/elvis/bitbucket/ocui/public/css/imageCropping.styl */
 .zImgUploader .zImgUploaderCoverTop,
 .zImgUploader .zImgUploaderCoverBottom {
   width: 100%;
 }
 
-/* line 47 : /Users/elvis/bitbucket/ocui/public/css/imageCropping.styl */
+/* line 54 : /Users/elvis/bitbucket/ocui/public/css/imageCropping.styl */
 .zImgUploader .zImgUploaderFilter {
   border: 1px solid #eee;
   position: absolute;
@@ -848,7 +864,7 @@ body {
   z-index: 2;
 }
 
-/* line 57 : /Users/elvis/bitbucket/ocui/public/css/imageCropping.styl */
+/* line 64 : /Users/elvis/bitbucket/ocui/public/css/imageCropping.styl */
 .zImgUploader .zImgUploaderFilter i {
   background: rgba(100,100,100,0.2);
   position: absolute;
@@ -860,21 +876,21 @@ body {
   border: 1px solid #fefefe;
 }
 
-/* line 66 : /Users/elvis/bitbucket/ocui/public/css/imageCropping.styl */
+/* line 73 : /Users/elvis/bitbucket/ocui/public/css/imageCropping.styl */
 .zImgUploader .zImgUploaderFilter i.zCutDown {
   left: 50%;
   margin-left: -12px;
   bottom: -5px;
 }
 
-/* line 70 : /Users/elvis/bitbucket/ocui/public/css/imageCropping.styl */
+/* line 77 : /Users/elvis/bitbucket/ocui/public/css/imageCropping.styl */
 .zImgUploader .zImgUploaderFilter i.zCutUp {
   left: 50%;
   margin-left: -12px;
   top: -5px;
 }
 
-/* line 74 : /Users/elvis/bitbucket/ocui/public/css/imageCropping.styl */
+/* line 81 : /Users/elvis/bitbucket/ocui/public/css/imageCropping.styl */
 .zImgUploader .zImgUploaderFilter i.zCutLeft {
   width: 10px;
   height: 24px;
@@ -884,7 +900,7 @@ body {
   left: -5px;
 }
 
-/* line 81 : /Users/elvis/bitbucket/ocui/public/css/imageCropping.styl */
+/* line 88 : /Users/elvis/bitbucket/ocui/public/css/imageCropping.styl */
 .zImgUploader .zImgUploaderFilter i.zCutRight {
   width: 10px;
   height: 24px;
@@ -894,14 +910,14 @@ body {
   right: -5px;
 }
 
-/* line 88 : /Users/elvis/bitbucket/ocui/public/css/imageCropping.styl */
+/* line 95 : /Users/elvis/bitbucket/ocui/public/css/imageCropping.styl */
 .zImgUploader .zCutImageSize {
   color: #888;
   padding: 0 15px;
   display: inline-block;
 }
 
-/* line 92 : /Users/elvis/bitbucket/ocui/public/css/imageCropping.styl */
+/* line 99 : /Users/elvis/bitbucket/ocui/public/css/imageCropping.styl */
 .zImgUploader .zImgUploaderControl {
   border: 1px solid #d2d3d1;
   padding: 3px 10px;
@@ -917,14 +933,14 @@ body {
   z-index: 2;
 }
 
-/* line 105 : /Users/elvis/bitbucket/ocui/public/css/imageCropping.styl */
+/* line 112 : /Users/elvis/bitbucket/ocui/public/css/imageCropping.styl */
 .zImgUploader .zImgUploaderControl input,
 .zImgUploader .zImgUploaderControl b,
 .zImgUploader .zImgUploaderControl span {
   vertical-align: middle;
 }
 
-/* line 107 : /Users/elvis/bitbucket/ocui/public/css/imageCropping.styl */
+/* line 114 : /Users/elvis/bitbucket/ocui/public/css/imageCropping.styl */
 .zImgUploader .zImgUploaderControl .iptFile {
   position: relative;
   display: inline-block;
@@ -935,7 +951,7 @@ body {
   border: 1px solid transparent;
 }
 
-/* line 115 : /Users/elvis/bitbucket/ocui/public/css/imageCropping.styl */
+/* line 122 : /Users/elvis/bitbucket/ocui/public/css/imageCropping.styl */
 .zImgUploader .zImgUploaderControl .iptFile:after {
   content: "";
   display: inline-block;
@@ -950,7 +966,7 @@ body {
   margin-left: 10px;
 }
 
-/* line 127 : /Users/elvis/bitbucket/ocui/public/css/imageCropping.styl */
+/* line 134 : /Users/elvis/bitbucket/ocui/public/css/imageCropping.styl */
 .zImgUploader .zImgUploaderControl .iptFile input[type="file"] {
   background: transparent;
   opacity: 0;
@@ -961,18 +977,18 @@ body {
   width: 100%;
 }
 
-/* line 135 : /Users/elvis/bitbucket/ocui/public/css/imageCropping.styl */
+/* line 142 : /Users/elvis/bitbucket/ocui/public/css/imageCropping.styl */
 .zImgUploader .zImgUploaderControl .iptFile:hover {
   border: 1px solid #ddd;
 }
 
-/* line 137 : /Users/elvis/bitbucket/ocui/public/css/imageCropping.styl */
+/* line 144 : /Users/elvis/bitbucket/ocui/public/css/imageCropping.styl */
 .zImgUploader .zImgUploaderControl input[type="range"] {
   width: 100px;
   display: inline-block;
 }
 
-/* line 140 : /Users/elvis/bitbucket/ocui/public/css/imageCropping.styl */
+/* line 147 : /Users/elvis/bitbucket/ocui/public/css/imageCropping.styl */
 .zImgUploader .zImgUploaderControl b {
   color: #888;
   font-size: 20px;
@@ -980,7 +996,7 @@ body {
   padding: 0 7px;
 }
 
-/* line 145 : /Users/elvis/bitbucket/ocui/public/css/imageCropping.styl */
+/* line 152 : /Users/elvis/bitbucket/ocui/public/css/imageCropping.styl */
 .zImgUploader .zImgUploaderControl b:hover {
   color: #222;
 }
