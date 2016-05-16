@@ -1,7 +1,7 @@
 # ImageCropping
 前端图片预览，裁剪，使用FileReader、Canvas实现
 
-A better way to crop images client-side using ImageCropping http://ui.tinyp2p.com/crop
+A better way to crop images client-side using ImageCropping 
 
 纯前端实现的图片预览，图片裁剪功能，提供接口获取裁剪后的图片（Base64编码），浏览器环境需要支持HTML5的FileReader、Canvas, 支持拖拽，图片放大、缩小。 image crop、image cropper、picture cut、picture crop、image upload
 
